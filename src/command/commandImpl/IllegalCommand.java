@@ -8,7 +8,7 @@ public class IllegalCommand extends AbstractCommand{
 
     @Override
     public void execute() throws Exception {
-
+        System.out.println("非法指令，无法运行");
     }
 
     @Override

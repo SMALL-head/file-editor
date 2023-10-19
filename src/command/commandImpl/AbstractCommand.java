@@ -12,4 +12,6 @@ import src.context.FileEditorContext;
  */
 public abstract class AbstractCommand implements Operator, RecordManner {
     FileEditorContext ctx = FileEditorContext.getContext();
+
+    // todo： 通过观察者模式的方式触发日志记录
 }
