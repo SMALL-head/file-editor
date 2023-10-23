@@ -4,6 +4,10 @@ import src.context.FileEditorContext;
 import src.exception.IllegalException;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Example： LoadCommand
@@ -16,7 +20,8 @@ public class LoadCommand extends AbstractCommand {
     String filePath;
     FileEditorContext ctx;
 
-    public LoadCommand(FileEditorContext ctx, String filePath) {
+    public LoadCommand(FileEditorContext ctx, String filePath, String originCommand) {
+        super(originCommand);
         this.ctx = ctx;
         this.filePath = filePath;
     }
@@ -37,14 +42,22 @@ public class LoadCommand extends AbstractCommand {
             }
         }
 
-        // 存储打开的文件
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        // 新增tmp文件，从file中复制内容到tmp文件中
+        File tmpFile = new File(filePath + ".tmp");
+        boolean createTmpFile = tmpFile.createNewFile();
+        if (!createTmpFile) {
+            System.out.println("无法编辑文件");
+            throw new IOException();
+        }
+        Files.copy(new FileInputStream(file), Path.of(filePath + ".tmp"));
+
         ctx.setActiveFile(filePath);
-        ctx.setReader(reader);
-        ctx.setWriter(writer);
+        ctx.setFile(new RandomAccessFile(tmpFile, "rw"));
+        ctx.setExecuteStack(new LinkedList<>());
 
         System.out.println("打开文件: " + filePath);
+        ctx.setDate(new Date()); // 设置文件当前打开时间
+        super.execute();
     }
 
     @Override

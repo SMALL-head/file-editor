@@ -3,6 +3,9 @@ package src.command.commandImpl;
 import src.command.Operator;
 import src.command.RecordManner;
 import src.context.FileEditorContext;
+import src.utils.FileEditorConstants;
+
+import java.util.Deque;
 
 /**
  * 集成Operator与RecordManner两个接口
@@ -11,7 +14,27 @@ import src.context.FileEditorContext;
  * @version 1.0
  */
 public abstract class AbstractCommand implements Operator, RecordManner {
-    FileEditorContext ctx = FileEditorContext.getContext();
 
+    String originCommand;
+
+    public AbstractCommand(String originCommand) {
+        this.originCommand = originCommand;
+    }
+
+    public String getOriginCommand() {
+        return originCommand;
+    }
+
+    public void setOriginCommand(String originCommand) {
+        this.originCommand = originCommand;
+    }
     // todo： 通过观察者模式的方式触发日志记录
+
+    @Override
+    public void execute() throws Exception {
+        if (isRecordable()) {
+            Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
+            executeStack.addLast(this);
+        }
+    }
 }

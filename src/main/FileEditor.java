@@ -2,7 +2,7 @@ package src.main;
 
 import src.command.commandImpl.AbstractCommand;
 import src.command.factory.CommandFactory;
-import src.context.FileEditorContext;
+import src.utils.FileEditorConstants;
 
 import java.util.Scanner;
 
@@ -13,13 +13,19 @@ import java.util.Scanner;
  */
 public class FileEditor {
     public static void main(String[] args) throws Exception {
-        String stringCommand = null;
+        // 关闭jvm的时候需要删除临时文件
+        Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownHookThreadFunc()));
+
+        String stringCommand;
         Scanner scanner = new Scanner(System.in);
-        FileEditorContext ctx = FileEditorContext.getContext(); // 获取上下文单例
-        while (!(stringCommand = scanner.nextLine()).equals("q")) {
+        while (!(stringCommand = scanner.nextLine()).equals(FileEditorConstants.QUIT_STRING)) {
             // 1. 利用工厂模式生成对应的操作
             AbstractCommand abstractCommand = CommandFactory.generateCommand(stringCommand);
-            abstractCommand.execute();
+            try {
+                abstractCommand.execute();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

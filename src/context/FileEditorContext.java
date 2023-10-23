@@ -1,7 +1,13 @@
 package src.context;
 
+import src.command.commandImpl.AbstractCommand;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.RandomAccessFile;
+import java.sql.Time;
+import java.util.Date;
+import java.util.Deque;
 
 /**
  * @author zyc
@@ -10,28 +16,30 @@ import java.io.BufferedWriter;
 public class FileEditorContext {
     final static FileEditorContext singleton = new FileEditorContext();
 
+    private FileEditorContext() {
+    }
+
     public static FileEditorContext getContext() {
         return singleton;
     }
 
-    BufferedReader reader;
-    BufferedWriter writer;
+ RandomAccessFile file;
+    /**
+     * 该文件记录的路径名是不带有.tmp的
+     * 若有activeFile，那么executeStack也应该存在。
+     */
     String activeFile;
 
-    public BufferedReader getReader() {
-        return reader;
+    Date date;
+
+    Deque<AbstractCommand> executeStack;
+
+    public RandomAccessFile getFile() {
+        return file;
     }
 
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
-
-    public BufferedWriter getWriter() {
-        return writer;
-    }
-
-    public void setWriter(BufferedWriter writer) {
-        this.writer = writer;
+    public void setFile(RandomAccessFile file) {
+        this.file = file;
     }
 
     public String getActiveFile() {
@@ -40,5 +48,21 @@ public class FileEditorContext {
 
     public void setActiveFile(String activeFile) {
         this.activeFile = activeFile;
+    }
+
+    public Deque<AbstractCommand> getExecuteStack() {
+        return executeStack;
+    }
+
+    public void setExecuteStack(Deque<AbstractCommand> executeStack) {
+        this.executeStack = executeStack;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
