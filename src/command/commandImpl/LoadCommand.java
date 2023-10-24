@@ -6,6 +6,7 @@ import src.exception.IllegalException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -49,7 +50,7 @@ public class LoadCommand extends AbstractCommand {
             System.out.println("无法编辑文件");
             throw new IOException();
         }
-        Files.copy(new FileInputStream(file), Path.of(filePath + ".tmp"));
+        Files.copy(new FileInputStream(file), Path.of(filePath + ".tmp"), StandardCopyOption.REPLACE_EXISTING);
 
         ctx.setActiveFile(filePath);
         ctx.setFile(new RandomAccessFile(tmpFile, "rw"));
