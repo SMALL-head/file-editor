@@ -22,6 +22,7 @@ public class SaveCommand extends AbstractCommand {
         String activeFile = context.getActiveFile();
         String tmpFile = activeFile + FileEditorConstants.TMP_SUFFIX;
         // 将临时文件内容全部拷贝入真实文件中
+        context.getFile().close();
         FileUtils.copyThenDelete(tmpFile, activeFile);
         super.execute();
     }

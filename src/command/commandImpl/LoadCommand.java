@@ -50,7 +50,7 @@ public class LoadCommand extends AbstractCommand {
             System.out.println("无法编辑文件");
             throw new IOException();
         }
-        Files.copy(new FileInputStream(file), Path.of(filePath + ".tmp"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(Path.of(file.getPath()), Path.of(filePath + ".tmp"), StandardCopyOption.REPLACE_EXISTING);
 
         ctx.setActiveFile(filePath);
         ctx.setFile(new RandomAccessFile(tmpFile, "rw"));

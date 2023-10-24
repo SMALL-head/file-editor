@@ -24,7 +24,7 @@ public class FileEditor {
             try {
                 abstractCommand.execute();
             } catch (Exception ex) {
-                System.out.println(ex.getClass() +": " +  ex.getMessage());
+                ex.printStackTrace();
             }
         }
     }
