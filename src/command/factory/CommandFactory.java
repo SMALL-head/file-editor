@@ -37,8 +37,11 @@ public class CommandFactory {
                 yield new SaveCommand(stringCommand);
             }
             case "insert" -> {
-                // todo: 生成插入指令
-                yield new UnfinishedCommand(stringCommand);
+                // 如果只有 insert 行号 ，认为插入一个空行
+                if (split.length < 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new InsertCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "append-head" -> {
                 // todo:
