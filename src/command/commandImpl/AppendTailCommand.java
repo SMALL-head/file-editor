@@ -7,13 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AppendTailCommand extends AbstractCommand{
-    FileEditorContext ctx;
+    //FileEditorContext ctx;
     int fileLineNumber = 0;  // 文件行数
     int targetLineNum = 0;  // 目标行
     String targetText = null;  // 目标文本
     public AppendTailCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
+        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
     private void parseAppendTailCommand(){
         Pattern pattern = Pattern.compile("append-tail\\s+(.*)");

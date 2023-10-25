@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DeleteCommand extends AbstractCommand{
-    FileEditorContext ctx;
+    //FileEditorContext ctx;
     int fileLineNumber = 0;  // 文件行数
     int targetLineNum = 0;  // 删除前，要删除的目标行数
     String deleteInputText = null;  // 输入的要删除的文本
@@ -21,6 +21,7 @@ public class DeleteCommand extends AbstractCommand{
     public DeleteCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
+        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

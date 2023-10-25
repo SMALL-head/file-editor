@@ -46,7 +46,4 @@ public abstract class AbstractCommand implements Operator, RecordManner {
         }
     }
 
-
-    //
-
 }
