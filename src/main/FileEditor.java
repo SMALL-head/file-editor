@@ -4,6 +4,11 @@ import src.command.commandImpl.AbstractCommand;
 import src.command.factory.CommandFactory;
 import src.utils.FileEditorConstants;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -18,6 +23,19 @@ public class FileEditor {
 
         String stringCommand;
         Scanner scanner = new Scanner(System.in);
+
+        // 一个session启动，写入日志时间
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        // 格式化时间
+        String formattedDate = dateFormat.format(now);
+        try (FileWriter fileWriter = new FileWriter(".log", true);
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.println("session start at " + formattedDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         while (!(stringCommand = scanner.nextLine()).equals(FileEditorConstants.QUIT_STRING)) {
             // 1. 利用工厂模式生成对应的操作
             AbstractCommand abstractCommand = CommandFactory.generateCommand(stringCommand);

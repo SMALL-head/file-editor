@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InsertCommand extends AbstractCommand{
-    FileEditorContext ctx;
+    //FileEditorContext ctx;
     int fileLineNumber = 0;  // 文件行数
     int targetLineNum = 0;  // 目标行
     String targetText = null;  // 目标文本
@@ -19,6 +19,7 @@ public class InsertCommand extends AbstractCommand{
     public InsertCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
+        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

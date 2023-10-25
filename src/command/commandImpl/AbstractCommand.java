@@ -3,9 +3,14 @@ package src.command.commandImpl;
 import src.command.Operator;
 import src.command.RecordManner;
 import src.context.FileEditorContext;
+import src.log.Observer;
+import src.log.Subject;
 import src.utils.FileEditorConstants;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Deque;
+import java.util.List;
 
 /**
  * 集成Operator与RecordManner两个接口
@@ -16,7 +21,8 @@ import java.util.Deque;
 public abstract class AbstractCommand implements Operator, RecordManner {
 
     String originCommand;
-
+    public FileEditorContext ctx;
+    Subject subject = new Subject();
     public AbstractCommand(String originCommand) {
         this.originCommand = originCommand;
     }
@@ -35,6 +41,12 @@ public abstract class AbstractCommand implements Operator, RecordManner {
         if (isRecordable()) {
             Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
             executeStack.addLast(this);
+            ctx.setDate(new Date()); //
+            subject.notifyObservers(this);
         }
     }
+
+
+    //
+
 }

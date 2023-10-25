@@ -1,6 +1,7 @@
 package src.context;
 
 import src.command.commandImpl.AbstractCommand;
+import src.log.CommandLogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -64,5 +65,11 @@ public class FileEditorContext {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+
+    private CommandLogger commandLogger = new CommandLogger();
+    public CommandLogger getCommandLogger() {
+        return commandLogger;
     }
 }

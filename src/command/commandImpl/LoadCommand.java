@@ -19,12 +19,13 @@ import java.util.LinkedList;
  */
 public class LoadCommand extends AbstractCommand {
     String filePath;
-    FileEditorContext ctx;
+    //FileEditorContext ctx;
 
     public LoadCommand(FileEditorContext ctx, String filePath, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
         this.filePath = filePath;
+        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override
@@ -63,7 +64,7 @@ public class LoadCommand extends AbstractCommand {
 
     @Override
     public boolean isRecordable() {
-        return false;
+        return true;
     }
 
     private boolean isValidFilePath(String path) {
