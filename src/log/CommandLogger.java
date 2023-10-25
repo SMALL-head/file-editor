@@ -16,10 +16,10 @@ public class CommandLogger implements Observer {
     @Override
     public void update(AbstractCommand executedCommand) {
         executedCommands.add(executedCommand);
-        saveToTxtFile(executedCommand);
+        saveToLogFile(executedCommand);
     }
 
-    private void saveToTxtFile(AbstractCommand command) {
+    private void saveToLogFile(AbstractCommand command) {
         try (FileWriter fileWriter = new FileWriter(".log", true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
             printWriter.println(command.ctx.getDate() +" "+ command.getOriginCommand());
