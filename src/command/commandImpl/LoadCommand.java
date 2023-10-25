@@ -69,7 +69,7 @@ public class LoadCommand extends AbstractCommand {
     private boolean isValidFilePath(String path) {
         // 此处可以添加更多的合法性检查
         // 这里的示例只是检查路径中是否包含了不允许的字符
-        String illegalChars = "[\\\\/:*?\"<>|]";
+        String illegalChars = "[\\\\:*?\"<>|]";
         return !path.matches(".*" + illegalChars + ".*");
     }
 }

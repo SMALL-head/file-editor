@@ -24,6 +24,10 @@ public class SaveCommand extends AbstractCommand {
         // 将临时文件内容全部拷贝入真实文件中
         context.getFile().close();
         FileUtils.copyThenDelete(tmpFile, activeFile);
+        context.setActiveFile(null);
+        context.getExecuteStack().clear();
+        context.setFile(null);
+        // todo: 时间怎么算？？
         super.execute();
     }
 
