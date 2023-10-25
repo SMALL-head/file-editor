@@ -3,8 +3,6 @@ package src.command.commandImpl;
 import src.command.Operator;
 import src.context.FileEditorContext;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -25,10 +23,9 @@ public class InsertCommand extends AbstractCommand{
 
     @Override
     public void execute() throws Exception {
-        fileLineNumber = getLineNumber();
-
+        fileLineNumber = getFileLines(ctx.getFile());
         parseInsertCommand();
-        insertTargetLine();
+        insertTargetLine(ctx.getFile(), targetLineNum, targetText);
 
         super.execute();
     }
@@ -47,15 +44,14 @@ public class InsertCommand extends AbstractCommand{
         // 避免 insert 3 apples 歧义: 到底是插入 3 apples 呢，还是在第三行插入 apples 呢？
         // 可能设想：插入的文本必须以 "" 包裹
         // 目前先不管这个歧义，默认第二个是行号（如果是数字的话）
-        String[] split = originCommand.split("\\s+");
         // 1. 没有行数，比如 insert xxx
-        Pattern pattern = Pattern.compile("insert\\s+(\\d*)?\\s(.*)");
+        Pattern pattern = Pattern.compile("insert\\s*(\\d*)?\\s*(.*)");
         Matcher matcher = pattern.matcher(originCommand);
         if (matcher.matches()){
             String lineNumberStr = matcher.group(1);
             targetText = matcher.group(2);
 
-            if (lineNumberStr == null) {
+            if (lineNumberStr == null || lineNumberStr.equals("")) {
                 targetLineNum = fileLineNumber + 1;
             } else {
                 targetLineNum = Integer.parseInt(lineNumberStr);
@@ -67,11 +63,10 @@ public class InsertCommand extends AbstractCommand{
         }
 
     }
-    private int getLineNumber() {
+    public static int getFileLines(RandomAccessFile file) {
         // 读完，指针就在文件尾了
         int lineCount = 0;
         try {
-            RandomAccessFile file = ctx.getFile();
             file.seek(0);  // 一定要移动到文件最开始
             while (file.readLine() != null) {
                 lineCount++;
@@ -79,25 +74,23 @@ public class InsertCommand extends AbstractCommand{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return lineCount;
     }
 
-    private int insertTargetLine() throws IOException {
-        RandomAccessFile file = ctx.getFile();
+    public static void insertTargetLine(RandomAccessFile file,int targetLine, String targetContext) throws IOException {
         file.seek(0);
         ArrayList<String> lineList = new ArrayList<>();
         String line;
-        int lineNumber = 0;
-
         while ((line = file.readLine()) != null) {
             lineList.add(line);
-            lineNumber++;
         }
-        fileLineNumber = lineNumber;
         // line 是从1开始的，但是index是从0开始的
-        lineList.add(targetLineNum - 1, targetText);
+        lineList.add(targetLine - 1, targetContext);
+        writeLineList(file, lineList);
 
+    }
+    public static void writeLineList(RandomAccessFile file, ArrayList<String> lineList) throws IOException {
+        String line;
         file.setLength(0); // 清空内容
         int size = lineList.size();
         for (int i = 0; i < size; i++) {
@@ -107,7 +100,5 @@ public class InsertCommand extends AbstractCommand{
                 file.writeBytes(System.lineSeparator());
             }
         }
-
-        return 0;
     }
 }

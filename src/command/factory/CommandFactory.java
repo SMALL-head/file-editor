@@ -45,11 +45,16 @@ public class CommandFactory {
             }
             case "append-head" -> {
                 // todo:
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length < 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new AppendHeadCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "append-tail" -> {
-                // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length < 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new AppendTailCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "delete" -> {
                 // todo
