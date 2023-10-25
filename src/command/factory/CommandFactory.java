@@ -57,8 +57,10 @@ public class CommandFactory {
                 yield new AppendTailCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "delete" -> {
-                // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length < 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new DeleteCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "undo" -> {
                 // todo

@@ -26,8 +26,8 @@ public class AppendTailCommand extends AbstractCommand{
     public void execute() throws Exception {
         targetLineNum = InsertCommand.getFileLines(ctx.getFile()) + 1;
         parseAppendTailCommand();
-        System.out.println("插入的行数: " + targetLineNum);
-        System.out.println("插入的内容: " + targetText);
+        System.out.println("添加的行数: " + targetLineNum);
+        System.out.println("添加的内容: " + targetText);
         InsertCommand.insertTargetLine(ctx.getFile(), targetLineNum, targetText);
         super.execute();
     }
