@@ -15,7 +15,7 @@ public class DeleteCommand extends AbstractCommand{
     int targetLineNum = 0;  // 删除前，要删除的目标行数
     String deleteInputText = null;  // 输入的要删除的文本
     String deleteFileText = null;  // 实际删除的整行内容
-    boolean hasLineNumber = false;  // 是否是 "delete 行号" 指令
+    boolean hasLineNumber = false;  // 是否是 "delete 行号" 指令，区分以内容删除的delete
 
 
     public DeleteCommand(FileEditorContext ctx, String originCommand) {
@@ -32,6 +32,8 @@ public class DeleteCommand extends AbstractCommand{
         } else {
             deleteWithText();
         }
+        System.out.println("删除的行号是：" + targetLineNum);
+        System.out.println("删除的内容是：" + deleteFileText);
         super.execute();
     }
     private void parseDeleteTailCommand(){
@@ -41,20 +43,18 @@ public class DeleteCommand extends AbstractCommand{
         Matcher matcher = pattern.matcher(originCommand);
         if (matcher.matches()){
             String lineNumberStr = matcher.group(1);
-            if (lineNumberStr == null || lineNumberStr.equals("")) {
+            if (lineNumberStr == null || lineNumberStr.isEmpty()) {
                 // 如果没有行数，则是用内容删除
                 hasLineNumber = false;
                 deleteInputText = matcher.group(2);
             } else {
+                hasLineNumber = true;
                 targetLineNum = Integer.parseInt(lineNumberStr);
                 if (targetLineNum > fileLineNumber) {
                     // 如果要删除的行数大于文件总行数，认为删除最后一行
                     targetLineNum = fileLineNumber;
-                    hasLineNumber = true;
                 }
             }
-            System.out.println("插入的行号: " + targetLineNum);
-            System.out.println("插入的内容: " + targetText);
         }
     }
 
@@ -63,7 +63,7 @@ public class DeleteCommand extends AbstractCommand{
         file.seek(0);
         ArrayList<String> lineList = new ArrayList<>();
         String line;
-        int lineNumber = 0;
+        int lineNumber = 1;
         while ((line = file.readLine()) != null) {
             // 删除逻辑，不知道是包含还是相等
             // if (line.contains(deleteInputText)) {
@@ -88,9 +88,9 @@ public class DeleteCommand extends AbstractCommand{
             if (lineNumber == targetLineNum) {
                 deleteFileText = line;
             } else {
-                lineNumber++;
                 lineList.add(line);
             }
+            lineNumber++;
         }
         InsertCommand.writeLineList(ctx.getFile(), lineList);
     }

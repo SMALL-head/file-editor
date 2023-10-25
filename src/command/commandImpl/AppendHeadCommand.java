@@ -19,7 +19,7 @@ public class AppendHeadCommand extends AbstractCommand{
     public void execute() throws Exception {
         fileLineNumber = InsertCommand.getFileLines(ctx.getFile());
         parseAppendHeadCommand();
-        System.out.println("插入的内容: " + targetText);
+        System.out.println("添加到文件首部的内容是: " + targetText);
         InsertCommand.insertTargetLine(ctx.getFile(),1,targetText);
         super.execute();
     }
