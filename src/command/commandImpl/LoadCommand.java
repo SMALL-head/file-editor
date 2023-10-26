@@ -25,7 +25,6 @@ public class LoadCommand extends AbstractCommand {
         super(originCommand);
         this.ctx = ctx;
         this.filePath = filePath;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

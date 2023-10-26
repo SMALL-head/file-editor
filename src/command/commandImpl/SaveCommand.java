@@ -15,7 +15,6 @@ public class SaveCommand extends AbstractCommand {
     public SaveCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

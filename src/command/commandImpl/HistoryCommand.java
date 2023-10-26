@@ -12,12 +12,10 @@ public class HistoryCommand extends AbstractCommand{
     public HistoryCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override
     public void execute() throws Exception {
-        //一个参数
         if (originCommand.matches("history(\\s+\\d+)?")) {
             String[] parts = originCommand.split("\\s+");
             if(parts.length == 1) {

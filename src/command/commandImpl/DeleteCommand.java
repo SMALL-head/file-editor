@@ -21,7 +21,6 @@ public class DeleteCommand extends AbstractCommand{
     public DeleteCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

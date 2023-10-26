@@ -14,7 +14,6 @@ public class AppendTailCommand extends AbstractCommand{
     public AppendTailCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
     private void parseAppendTailCommand(){
         Pattern pattern = Pattern.compile("append-tail\\s+(.*)");

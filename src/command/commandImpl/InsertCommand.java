@@ -19,7 +19,6 @@ public class InsertCommand extends AbstractCommand{
     public InsertCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

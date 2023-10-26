@@ -13,7 +13,6 @@ public class AppendHeadCommand extends AbstractCommand{
     public AppendHeadCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
         this.ctx = ctx;
-        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     @Override

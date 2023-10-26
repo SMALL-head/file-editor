@@ -25,6 +25,7 @@ public abstract class AbstractCommand implements Operator, RecordManner {
     Subject subject = new Subject();
     public AbstractCommand(String originCommand) {
         this.originCommand = originCommand;
+        subject.addObserver(FileEditorContext.getContext().getCommandLogger());
     }
 
     public String getOriginCommand() {
