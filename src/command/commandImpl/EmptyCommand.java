@@ -1,7 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
-
 /**
  * @author zyc
  * @version 1.0

@@ -66,13 +66,13 @@ public class LoadCommand extends AbstractCommand {
         ctx.setUndoStack(new LinkedList<>());
 
         System.out.println("打开文件: " + filePath);
-        ctx.setDate(new Date()); // 设置文件当前打开时间
+        ctx.setLastCommandExecuteDate(new Date()); // 设置文件当前打开时间
         super.execute();
     }
 
     @Override
     public boolean isRecordable() {
-        return true;
+        return false;
     }
 
     private boolean isValidFilePath(String path) {

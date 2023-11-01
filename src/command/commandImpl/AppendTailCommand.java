@@ -42,6 +42,8 @@ public class AppendTailCommand extends AbstractCommand{
     @Override
     public AbstractCommand reverseOperator() {
         String reverseCommand = "delete " + this.targetLineNum;
-        return new DeleteCommand(this.ctx, reverseCommand, false);
+        DeleteCommand deleteCommand = new DeleteCommand(this.ctx, reverseCommand, false);
+        deleteCommand.setLoggable(false);
+        return deleteCommand;
     }
 }

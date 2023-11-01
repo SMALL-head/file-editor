@@ -5,7 +5,6 @@ import src.context.FileEditorContext;
 import java.util.Deque;
 
 public class UndoCommand extends AbstractCommand {
-    FileEditorContext ctx;
 
     public UndoCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
@@ -27,7 +26,7 @@ public class UndoCommand extends AbstractCommand {
         Deque<AbstractCommand> executeStack = this.ctx.getExecuteStack();
         Deque<AbstractCommand> undoStack = this.ctx.getUndoStack();
 
-        if (executeStack.size() > 0) {
+        if (!executeStack.isEmpty()) {
             // 弹栈上一个操作
             AbstractCommand lastCommand = executeStack.removeLast();
 

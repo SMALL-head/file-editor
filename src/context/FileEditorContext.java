@@ -28,7 +28,10 @@ public class FileEditorContext {
      */
     String activeFile;
 
-    Date date;
+    /**
+     * 上一次Command操作的时间
+     */
+    Date lastCommandExecuteDate;
 
     Deque<AbstractCommand> executeStack;
     Deque<AbstractCommand> undoStack;
@@ -61,16 +64,15 @@ public class FileEditorContext {
 
     public void setUndoStack(Deque<AbstractCommand> undoStack) { this.undoStack = undoStack; }
 
-    public Date getDate() {
-        return date;
+    public Date getLastCommandExecuteDate() {
+        return lastCommandExecuteDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setLastCommandExecuteDate(Date lastCommandExecuteDate) {
+        this.lastCommandExecuteDate = lastCommandExecuteDate;
     }
 
-
-    private CommandLogger commandLogger = new CommandLogger();
+    private final CommandLogger commandLogger = new CommandLogger();
     public CommandLogger getCommandLogger() {
         return commandLogger;
     }

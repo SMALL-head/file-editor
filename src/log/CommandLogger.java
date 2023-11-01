@@ -15,8 +15,8 @@ import static src.utils.TimeUtils.FormattedTime;
 
 public class CommandLogger implements Observer {
 
-    private List<AbstractCommand> executedCommands = new ArrayList<>();
-    private List<String> Lines = new ArrayList<>();
+    private final List<AbstractCommand> executedCommands = new ArrayList<>();
+    private final List<String> Lines = new ArrayList<>();
 
     public void ReadCommand() {
         try (BufferedReader br = new BufferedReader(new FileReader(".log"))) {
@@ -27,7 +27,7 @@ public class CommandLogger implements Observer {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("日志记录失败:" + e.getMessage());
         }
     }
     @Override
@@ -41,7 +41,7 @@ public class CommandLogger implements Observer {
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
             printWriter.println(FormattedTime() +" "+ command.getOriginCommand());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("日志记录失败:" + e.getMessage());
         }
     }
 

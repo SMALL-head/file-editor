@@ -1,6 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
 import src.context.FileEditorContext;
 
 /**
@@ -29,11 +28,11 @@ public class HistoryCommand extends AbstractCommand{
 
     @Override
     public boolean isRecordable() {
-        return true;
+        return false;
     }
 
     @Override
-    public Operator reverseOperator() {
+    public AbstractCommand reverseOperator() {
         return super.reverseOperator();
     }
 }

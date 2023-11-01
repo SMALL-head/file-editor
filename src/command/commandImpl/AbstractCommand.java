@@ -3,14 +3,10 @@ package src.command.commandImpl;
 import src.command.Operator;
 import src.command.RecordManner;
 import src.context.FileEditorContext;
-import src.log.Observer;
 import src.log.Subject;
-import src.utils.FileEditorConstants;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Deque;
-import java.util.List;
 
 /**
  * 集成Operator与RecordManner两个接口
@@ -19,13 +15,17 @@ import java.util.List;
  * @version 1.0
  */
 public abstract class AbstractCommand implements Operator, RecordManner {
-
     String originCommand;
     public FileEditorContext ctx;
+    private boolean isLoggable = true;
     Subject subject = new Subject();
     public AbstractCommand(String originCommand) {
         this.originCommand = originCommand;
         subject.addObserver(FileEditorContext.getContext().getCommandLogger());
+    }
+
+    public void setLoggable(boolean loggable) {
+        isLoggable = loggable;
     }
 
     public String getOriginCommand() {
@@ -35,14 +35,15 @@ public abstract class AbstractCommand implements Operator, RecordManner {
     public void setOriginCommand(String originCommand) {
         this.originCommand = originCommand;
     }
-    // todo： 通过观察者模式的方式触发日志记录
 
     @Override
     public void execute() throws Exception {
         if (isRecordable()) {
-            //Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
-            //executeStack.addLast(this);
-            ctx.setDate(new Date()); //
+            Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
+            executeStack.addLast(this);
+        }
+        if (isLoggable) {
+            ctx.setLastCommandExecuteDate(new Date());
             subject.notifyObservers(this);
         }
     }

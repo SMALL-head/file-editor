@@ -105,6 +105,8 @@ public class DeleteCommand extends AbstractCommand{
     @Override
     public AbstractCommand reverseOperator() {
         String reverseCommand = "insert " + this.targetLineNum + " " + this.deleteFileText;
-        return new InsertCommand(this.ctx, reverseCommand, false);
+        InsertCommand insertCommand = new InsertCommand(this.ctx, reverseCommand, false);
+        insertCommand.setLoggable(false);
+        return insertCommand;
     }
 }
