@@ -1,11 +1,8 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
 import src.context.FileEditorContext;
 import src.utils.FileEditorConstants;
 import src.utils.FileUtils;
-
-import java.io.File;
 
 /**
  * @author zyc
@@ -22,12 +19,18 @@ public class SaveCommand extends AbstractCommand {
         FileEditorContext context = FileEditorContext.getContext();
         String activeFile = context.getActiveFile();
         String tmpFile = activeFile + FileEditorConstants.TMP_SUFFIX;
+
         // 将临时文件内容全部拷贝入真实文件中
         context.getFile().close();
         FileUtils.copyThenDelete(tmpFile, activeFile);
+
+        System.out.println("保存成功");
+
         context.setActiveFile(null);
         context.getExecuteStack().clear();
+        context.getUndoStack().clear();
         context.setFile(null);
+
         // todo: 时间怎么算？？
         super.execute();
     }
@@ -38,7 +41,7 @@ public class SaveCommand extends AbstractCommand {
     }
 
     @Override
-    public Operator reverseOperator() {
+    public AbstractCommand reverseOperator() {
         return super.reverseOperator();
     }
 }

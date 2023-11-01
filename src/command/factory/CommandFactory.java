@@ -41,34 +41,38 @@ public class CommandFactory {
                 if (split.length < 2) {
                     yield new IllegalCommand(stringCommand);
                 }
-                yield new InsertCommand(FileEditorContext.getContext(), stringCommand);
+                yield new InsertCommand(FileEditorContext.getContext(), stringCommand, true);
             }
             case "append-head" -> {
                 // todo:
                 if (split.length < 2) {
                     yield new IllegalCommand(stringCommand);
                 }
-                yield new AppendHeadCommand(FileEditorContext.getContext(), stringCommand);
+                yield new AppendHeadCommand(FileEditorContext.getContext(), stringCommand, true);
             }
             case "append-tail" -> {
                 if (split.length < 2) {
                     yield new IllegalCommand(stringCommand);
                 }
-                yield new AppendTailCommand(FileEditorContext.getContext(), stringCommand);
+                yield new AppendTailCommand(FileEditorContext.getContext(), stringCommand, true);
             }
             case "delete" -> {
                 if (split.length < 2) {
                     yield new IllegalCommand(stringCommand);
                 }
-                yield new DeleteCommand(FileEditorContext.getContext(), stringCommand);
+                yield new DeleteCommand(FileEditorContext.getContext(), stringCommand, true);
             }
             case "undo" -> {
-                // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new UndoCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "redo" -> {
-                // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new RedoCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "history" -> {
                 // todo

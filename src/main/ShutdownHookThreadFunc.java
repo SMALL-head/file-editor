@@ -18,7 +18,6 @@ public class ShutdownHookThreadFunc implements Runnable {
         // 异常退出时删除临时文件
         String activeFile = FileEditorContext.getContext().getActiveFile();
         File file = new File(activeFile + FileEditorConstants.TMP_SUFFIX);
-        System.out.println(activeFile + FileEditorConstants.TMP_SUFFIX);
         if (file.exists()) {
             RandomAccessFile openFile = FileEditorContext.getContext().getFile();
             if (openFile != null) {

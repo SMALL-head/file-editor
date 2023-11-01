@@ -1,7 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
-
 /**
  * @author zyc
  * @version 1.0
@@ -23,7 +21,7 @@ public class UnfinishedCommand extends AbstractCommand{
     }
 
     @Override
-    public Operator reverseOperator() {
+    public AbstractCommand reverseOperator() {
         return super.reverseOperator();
     }
 }
