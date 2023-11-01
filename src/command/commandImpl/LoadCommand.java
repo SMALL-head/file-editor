@@ -34,6 +34,13 @@ public class LoadCommand extends AbstractCommand {
             throw new IllegalException("文件路径不合法");
         }
 
+        // 必须保证上次load的文件save后才能load新文件
+        if (ctx.getActiveFile() != null) {
+            System.out.println("之前的文件尚未保存，请先执行save执行保存文件");
+            super.execute();
+            return;
+        }
+
         // 如果不存在文件，就创建一个新的文件
         File file = new File(filePath);
         if (!file.exists()) {
