@@ -3,6 +3,7 @@ package src.main;
 import src.command.commandImpl.AbstractCommand;
 import src.command.factory.CommandFactory;
 import src.utils.FileEditorConstants;
+import static src.utils.TimeUtils.FormattedTime;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+
+
 
 /**
  * 启动类
@@ -24,14 +27,9 @@ public class FileEditor {
         String stringCommand;
         Scanner scanner = new Scanner(System.in);
 
-        // 一个session启动，写入日志时间
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
-        // 格式化时间
-        String formattedDate = dateFormat.format(now);
         try (FileWriter fileWriter = new FileWriter(".log", true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
-            printWriter.println("session start at " + formattedDate);
+            printWriter.println("session start at " + FormattedTime());
         } catch (IOException e) {
             e.printStackTrace();
         }

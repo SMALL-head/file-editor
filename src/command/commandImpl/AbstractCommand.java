@@ -40,8 +40,8 @@ public abstract class AbstractCommand implements Operator, RecordManner {
     @Override
     public void execute() throws Exception {
         if (isRecordable()) {
-            Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
-            executeStack.addLast(this);
+            //Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
+            //executeStack.addLast(this);
             ctx.setDate(new Date()); //
             subject.notifyObservers(this);
         }
