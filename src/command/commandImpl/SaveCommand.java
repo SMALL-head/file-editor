@@ -12,8 +12,9 @@ import java.io.File;
  * @version 1.0
  */
 public class SaveCommand extends AbstractCommand {
-    public SaveCommand(String originCommand) {
+    public SaveCommand(FileEditorContext ctx, String originCommand) {
         super(originCommand);
+        this.ctx = ctx;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class SaveCommand extends AbstractCommand {
 
     @Override
     public boolean isRecordable() {
-        return false;
+        return true;
     }
 
     @Override

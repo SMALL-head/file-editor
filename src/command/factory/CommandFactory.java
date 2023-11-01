@@ -34,7 +34,7 @@ public class CommandFactory {
                 if (split.length != 1) {
                     yield new IllegalCommand(stringCommand);
                 }
-                yield new SaveCommand(stringCommand);
+                yield new SaveCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "insert" -> {
                 // 如果只有 insert 行号 ，认为插入一个空行
@@ -72,7 +72,10 @@ public class CommandFactory {
             }
             case "history" -> {
                 // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length > 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new HistoryCommand(FileEditorContext.getContext(), stringCommand);
             }
             case "stat" -> {
                 // todo
