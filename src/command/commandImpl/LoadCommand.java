@@ -37,7 +37,15 @@ public class LoadCommand extends AbstractCommand {
         // 如果不存在文件，就创建一个新的文件
         File file = new File(filePath);
         if (!file.exists()) {
-            boolean create = file.createNewFile();
+            boolean create = false;
+            try {
+                create = file.createNewFile();
+            }
+            catch (IOException e) {
+                System.out.println("文件路径不合法");
+                return;
+            }
+
             if (create) {
                 System.out.println("创建新的文件: " + filePath);
             }
@@ -55,6 +63,7 @@ public class LoadCommand extends AbstractCommand {
         ctx.setActiveFile(filePath);
         ctx.setFile(new RandomAccessFile(tmpFile, "rw"));
         ctx.setExecuteStack(new LinkedList<>());
+        ctx.setUndoStack(new LinkedList<>());
 
         System.out.println("打开文件: " + filePath);
         ctx.setDate(new Date()); // 设置文件当前打开时间

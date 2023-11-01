@@ -1,5 +1,7 @@
 package src.command;
 
+import src.command.commandImpl.AbstractCommand;
+
 /**
  * 注意到某些操作需要记录在执行栈中，某些操作无需记录，因此我们创建了这个接口
  * @author zyc
@@ -16,7 +18,7 @@ public interface RecordManner {
      * 默认操作为返回
      * @return reversed Operator
      */
-    default Operator reverseOperator() {
+    default AbstractCommand reverseOperator() {
         return null;
-    };
+    }
 }

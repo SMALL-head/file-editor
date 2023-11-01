@@ -1,6 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
 import src.context.FileEditorContext;
 
 import java.io.IOException;
@@ -14,11 +13,12 @@ public class InsertCommand extends AbstractCommand{
     int fileLineNumber = 0;  // 文件行数
     int targetLineNum = 0;  // 目标行
     String targetText = null;  // 目标文本
+    boolean isRecordable;
 
-
-    public InsertCommand(FileEditorContext ctx, String originCommand) {
+    public InsertCommand(FileEditorContext ctx, String originCommand, boolean isRecordable) {
         super(originCommand);
         this.ctx = ctx;
+        this.isRecordable = isRecordable;
     }
 
     @Override
@@ -27,24 +27,37 @@ public class InsertCommand extends AbstractCommand{
         parseInsertCommand();
         insertTargetLine(ctx.getFile(), targetLineNum, targetText);
 
+        System.out.println("插入的行号: " + targetLineNum);
+        System.out.println("插入的内容: " + targetText);
+
         super.execute();
     }
 
     @Override
     public boolean isRecordable() {
-        return true;
+        return this.isRecordable;
     }
 
     @Override
-    public Operator reverseOperator() {
-        return super.reverseOperator();
+    public AbstractCommand reverseOperator() {
+        String reverseCommand = "delete " + this.targetLineNum;
+        return new DeleteCommand(this.ctx, reverseCommand, false);
     }
 
     private void parseInsertCommand() {
         // 避免 insert 3 apples 歧义: 到底是插入 3 apples 呢，还是在第三行插入 apples 呢？
         // 可能设想：插入的文本必须以 "" 包裹
         // 目前先不管这个歧义，默认第二个是行号（如果是数字的话）
-        // 1. 没有行数，比如 insert xxx
+
+        // 1. insert [行号] 文本
+        String[] split = originCommand.split("\\s+");
+        if (split.length == 2){
+            targetText = split[1];
+            targetLineNum = getFileLines(ctx.getFile()) + 1;
+            return;
+        }
+
+        // 2. insert 文本
         Pattern pattern = Pattern.compile("insert\\s*(\\d*)?\\s*(.*)");
         Matcher matcher = pattern.matcher(originCommand);
         if (matcher.matches()){
@@ -58,8 +71,6 @@ public class InsertCommand extends AbstractCommand{
                 if (targetLineNum > fileLineNumber)
                     targetLineNum = fileLineNumber + 1;
             }
-            System.out.println("插入的行号: " + targetLineNum);
-            System.out.println("插入的内容: " + targetText);
         }
 
     }
@@ -87,8 +98,8 @@ public class InsertCommand extends AbstractCommand{
         // line 是从1开始的，但是index是从0开始的
         lineList.add(targetLine - 1, targetContext);
         writeLineList(file, lineList);
-
     }
+
     public static void writeLineList(RandomAccessFile file, ArrayList<String> lineList) throws IOException {
         String line;
         file.setLength(0); // 清空内容

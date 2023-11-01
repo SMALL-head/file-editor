@@ -1,6 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
 import src.context.FileEditorContext;
 
 import java.util.regex.Matcher;
@@ -10,9 +9,12 @@ public class AppendHeadCommand extends AbstractCommand{
     FileEditorContext ctx;
     int fileLineNumber = 0;  // 文件行数
     String targetText = null;  // 目标文本
-    public AppendHeadCommand(FileEditorContext ctx, String originCommand) {
+    boolean isRecordable;
+
+    public AppendHeadCommand(FileEditorContext ctx, String originCommand, boolean isRecordable) {
         super(originCommand);
         this.ctx = ctx;
+        this.isRecordable = isRecordable;
     }
 
     @Override
@@ -31,15 +33,15 @@ public class AppendHeadCommand extends AbstractCommand{
             targetText = matcher.group(1);
         }
     }
+
     @Override
     public boolean isRecordable() {
-        return true;
+        return this.isRecordable;
     }
 
     @Override
-    public Operator reverseOperator() {
-        return super.reverseOperator();
+    public AbstractCommand reverseOperator() {
+        String reverseCommand = "delete 1";
+        return new DeleteCommand(this.ctx, reverseCommand, false);
     }
-
-
 }

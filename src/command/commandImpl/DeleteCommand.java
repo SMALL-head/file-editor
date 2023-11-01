@@ -1,6 +1,5 @@
 package src.command.commandImpl;
 
-import src.command.Operator;
 import src.context.FileEditorContext;
 
 import java.io.IOException;
@@ -16,11 +15,12 @@ public class DeleteCommand extends AbstractCommand{
     String deleteInputText = null;  // 输入的要删除的文本
     String deleteFileText = null;  // 实际删除的整行内容
     boolean hasLineNumber = false;  // 是否是 "delete 行号" 指令，区分以内容删除的delete
+    boolean isRecordable;
 
-
-    public DeleteCommand(FileEditorContext ctx, String originCommand) {
+    public DeleteCommand(FileEditorContext ctx, String originCommand, boolean isRecordable) {
         super(originCommand);
         this.ctx = ctx;
+        this.isRecordable = isRecordable;
     }
 
     @Override
@@ -34,8 +34,10 @@ public class DeleteCommand extends AbstractCommand{
         }
         System.out.println("删除的行号是：" + targetLineNum);
         System.out.println("删除的内容是：" + deleteFileText);
+
         super.execute();
     }
+
     private void parseDeleteTailCommand(){
         // 有歧义，delete 3是删除第三行还是删除内容为 3 的行
         // 这里的实现是行号优先
@@ -94,13 +96,15 @@ public class DeleteCommand extends AbstractCommand{
         }
         InsertCommand.writeLineList(ctx.getFile(), lineList);
     }
+
     @Override
     public boolean isRecordable() {
-        return true;
+        return this.isRecordable;
     }
 
     @Override
-    public Operator reverseOperator() {
-        return super.reverseOperator();
+    public AbstractCommand reverseOperator() {
+        String reverseCommand = "insert " + this.targetLineNum + " " + this.deleteFileText;
+        return new InsertCommand(this.ctx, reverseCommand, false);
     }
 }

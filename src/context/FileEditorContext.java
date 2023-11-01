@@ -2,10 +2,7 @@ package src.context;
 
 import src.command.commandImpl.AbstractCommand;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.RandomAccessFile;
-import java.sql.Time;
 import java.util.Date;
 import java.util.Deque;
 
@@ -23,7 +20,7 @@ public class FileEditorContext {
         return singleton;
     }
 
- RandomAccessFile file;
+    RandomAccessFile file;
     /**
      * 该文件记录的路径名是不带有.tmp的
      * 若有activeFile，那么executeStack也应该存在。
@@ -33,6 +30,7 @@ public class FileEditorContext {
     Date date;
 
     Deque<AbstractCommand> executeStack;
+    Deque<AbstractCommand> undoStack;
 
     public RandomAccessFile getFile() {
         return file;
@@ -57,6 +55,10 @@ public class FileEditorContext {
     public void setExecuteStack(Deque<AbstractCommand> executeStack) {
         this.executeStack = executeStack;
     }
+
+    public Deque<AbstractCommand> getUndoStack() { return undoStack; }
+
+    public void setUndoStack(Deque<AbstractCommand> undoStack) { this.undoStack = undoStack; }
 
     public Date getDate() {
         return date;
