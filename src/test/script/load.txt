@@ -1,0 +1,4 @@
+load ./testfile/t1.md
+load ./testfile/t1.md
+save
+q

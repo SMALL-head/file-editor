@@ -15,3 +15,53 @@ session start at 20231101 21:33:36
 20231101 21:34:42 redo
 20231101 21:34:49 history
 20231101 21:35:27 save
+session start at 20231102 11:05:14
+20231102 11:05:14 load ./testfile/t1.md
+20231102 11:05:14 load ./testfile/t1.md
+20231102 11:05:14 save
+session start at 20231102 11:05:14
+20231102 11:05:14 load ./testfile/t1.md
+20231102 11:05:14 insert 1 a
+20231102 11:05:14 save
+session start at 20231102 11:08:08
+20231102 11:08:08 load ./testfile/t1.md
+20231102 11:08:08 load ./testfile/t1.md
+20231102 11:08:08 save
+session start at 20231102 11:08:08
+20231102 11:08:08 load ./testfile/t1.md
+20231102 11:08:08 insert 1 a
+20231102 11:08:08 save
+session start at 20231102 11:14:51
+20231102 11:14:51 load ./testfile/t1.md
+20231102 11:14:51 load ./testfile/t1.md
+20231102 11:14:51 save
+session start at 20231102 11:14:51
+20231102 11:14:51 load ./testfile/t1.md
+20231102 11:14:51 insert 1 a
+20231102 11:14:51 save
+session start at 20231102 11:14:53
+session start at 20231102 11:15:48
+20231102 11:15:48 load ./testfile/t1.md
+20231102 11:15:48 load ./testfile/t1.md
+20231102 11:15:48 save
+session start at 20231102 11:15:48
+20231102 11:15:48 load ./testfile/t1.md
+20231102 11:15:48 insert 1 a
+20231102 11:15:48 save
+session start at 20231102 11:15:57
+session start at 20231102 11:22:24
+20231102 11:22:24 load ./testfile/t1.md
+20231102 11:22:24 load ./testfile/t1.md
+20231102 11:22:24 save
+session start at 20231102 11:22:24
+20231102 11:22:24 load ./testfile/t1.md
+20231102 11:22:24 insert 1 a
+20231102 11:22:24 save
+session start at 20231102 11:22:36
+20231102 11:22:36 load ./testfile/t1.md
+20231102 11:22:36 load ./testfile/t1.md
+20231102 11:22:36 save
+session start at 20231102 11:22:36
+20231102 11:22:36 load ./testfile/t1.md
+20231102 11:22:36 insert 1 a
+20231102 11:22:36 save

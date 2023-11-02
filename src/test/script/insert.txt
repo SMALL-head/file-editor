@@ -1,0 +1,4 @@
+load ./testfile/t1.md
+insert 1 a
+save
+q
