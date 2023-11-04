@@ -42,7 +42,7 @@ public abstract class AbstractCommand implements Operator, RecordManner {
             Deque<AbstractCommand> executeStack = FileEditorContext.getContext().getExecuteStack();
             executeStack.addLast(this);
         }
-        if (isLoggable) {
+        if (isLoggable && this.ctx != null) {
             ctx.setLastCommandExecuteDate(new Date());
             subject.notifyObservers(this);
         }

@@ -74,6 +74,29 @@ public class CommandFactory {
                 }
                 yield new RedoCommand(FileEditorContext.getContext(), stringCommand);
             }
+            case "list" -> {
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new ListCommand(FileEditorContext.getContext(), stringCommand);
+            }
+            case "list-tree" -> {
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new ListTreeCommand(FileEditorContext.getContext(), stringCommand);
+            }
+            case "dir-tree" -> {
+                if (split.length == 1) {
+                    yield new ListTreeCommand(FileEditorContext.getContext(), stringCommand);
+                }
+                else if (split.length == 2) {
+                    yield new DirTreeCommand(FileEditorContext.getContext(), stringCommand);
+                }
+                else {
+                    yield new IllegalCommand(stringCommand);
+                }
+            }
             case "history" -> {
                 // todo
                 if (split.length > 2) {
