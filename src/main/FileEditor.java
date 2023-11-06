@@ -3,13 +3,13 @@ package src.main;
 import src.command.commandImpl.AbstractCommand;
 import src.command.factory.CommandFactory;
 import src.utils.FileEditorConstants;
-import static src.utils.TimeUtils.FormattedTime;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import static src.utils.TimeUtils.FormattedTime;
 
 
 /**
@@ -32,13 +32,24 @@ public class FileEditor {
             e.printStackTrace();
         }
 
-        while (!(stringCommand = scanner.nextLine()).equals(FileEditorConstants.QUIT_STRING)) {
-            // 1. 利用工厂模式生成对应的操作
-            AbstractCommand abstractCommand = CommandFactory.generateCommand(stringCommand);
-            try {
-                abstractCommand.execute();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        while (true) {
+            if (!(stringCommand = scanner.nextLine()).equals(FileEditorConstants.QUIT_STRING)) {
+                // 1. 利用工厂模式生成对应的操作
+                AbstractCommand abstractCommand = CommandFactory.generateCommand(stringCommand);
+                try {
+                    abstractCommand.execute();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            else {
+                AbstractCommand abstractCommand = CommandFactory.generateCommand("stats q");
+                try {
+                    abstractCommand.execute();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                break;
             }
         }
     }

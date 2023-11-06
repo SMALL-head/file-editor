@@ -81,9 +81,12 @@ public class CommandFactory {
                 }
                 yield new HistoryCommand(FileEditorContext.getContext(), stringCommand);
             }
-            case "stat" -> {
+            case "stats" -> {
                 // todo
-                yield new UnfinishedCommand(stringCommand);
+                if (split.length > 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new StatsCommand(FileEditorContext.getContext(), stringCommand);
             }
             default -> new IllegalCommand(stringCommand);
         };

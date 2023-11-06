@@ -1,15 +1,10 @@
 package src.log;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import src.command.commandImpl.AbstractCommand;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static src.utils.TimeUtils.FormattedTime;
 
@@ -39,7 +34,10 @@ public class CommandLogger implements Observer {
     private void saveToLogFile(AbstractCommand command) {
         try (FileWriter fileWriter = new FileWriter(".log", true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
-            printWriter.println(FormattedTime() +" "+ command.getOriginCommand());
+            if(!command.getOriginCommand().equals("stats q")) {
+                printWriter.println(FormattedTime() +" "+ command.getOriginCommand());
+            }
+
         } catch (IOException e) {
             System.out.println("日志记录失败:" + e.getMessage());
         }
