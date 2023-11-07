@@ -73,15 +73,43 @@ public class CommandFactory {
                 }
                 yield new RedoCommand(FileEditorContext.getContext(), stringCommand);
             }
+            case "list" -> {
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new ListCommand(FileEditorContext.getContext(), stringCommand);
+            }
+            case "list-tree" -> {
+                if (split.length != 1) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new ListTreeCommand(FileEditorContext.getContext(), stringCommand);
+            }
+            case "dir-tree" -> {
+                if (split.length == 1) {
+                    yield new ListTreeCommand(FileEditorContext.getContext(), stringCommand);
+                }
+                else if (split.length == 2) {
+                    yield new DirTreeCommand(FileEditorContext.getContext(), stringCommand);
+                }
+                else {
+                    yield new IllegalCommand(stringCommand);
+                }
+            }
             case "history" -> {
                 if (split.length > 2) {
                     yield new IllegalCommand(stringCommand);
                 }
                 yield new HistoryCommand(FileEditorContext.getContext(), stringCommand);
             }
-            case "stat" -> {
-                // todo
-                yield new UnfinishedCommand(stringCommand);
+            case "stats" -> {
+                if (split.length > 2) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                if (split[1].equals("q")) {
+                    yield new IllegalCommand(stringCommand);
+                }
+                yield new StatsCommand(FileEditorContext.getContext(), stringCommand);
             }
             default -> new IllegalCommand(stringCommand);
         };

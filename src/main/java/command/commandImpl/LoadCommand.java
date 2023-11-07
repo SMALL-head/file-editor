@@ -50,7 +50,7 @@ public class LoadCommand extends AbstractCommand {
                 create = file.createNewFile();
             }
             catch (IOException e) {
-                SoutUtils.sout("文件路径不合法");
+                SoutUtils.sout(e.getMessage());
                 return;
             }
 

@@ -1,67 +1,133 @@
-session start at 20231101 21:30:57
-20231101 21:31:05 load ./testfile/t1.md
-20231101 21:31:12 insert 1 a
-20231101 21:31:24 undo
-20231101 21:31:25 insert 1 a
-20231101 21:31:25 redo
-20231101 21:31:28 history
-session start at 20231101 21:33:36
-20231101 21:34:07 load ./testfile/t1.md
-20231101 21:34:12 insert 1 a
-20231101 21:34:20 undo
-20231101 21:34:22 redo
-20231101 21:34:25 history
-20231101 21:34:40 undo
-20231101 21:34:42 redo
-20231101 21:34:49 history
-20231101 21:35:27 save
-session start at 20231102 11:05:14
-20231102 11:05:14 load ./testfile/t1.md
-20231102 11:05:14 load ./testfile/t1.md
-20231102 11:05:14 save
-session start at 20231102 11:05:14
-20231102 11:05:14 load ./testfile/t1.md
-20231102 11:05:14 insert 1 a
-20231102 11:05:14 save
-session start at 20231102 11:08:08
-20231102 11:08:08 load ./testfile/t1.md
-20231102 11:08:08 load ./testfile/t1.md
-20231102 11:08:08 save
-session start at 20231102 11:08:08
-20231102 11:08:08 load ./testfile/t1.md
-20231102 11:08:08 insert 1 a
-20231102 11:08:08 save
-session start at 20231102 11:14:51
-20231102 11:14:51 load ./testfile/t1.md
-20231102 11:14:51 load ./testfile/t1.md
-20231102 11:14:51 save
-session start at 20231102 11:14:51
-20231102 11:14:51 load ./testfile/t1.md
-20231102 11:14:51 insert 1 a
-20231102 11:14:51 save
-session start at 20231102 11:14:53
-session start at 20231102 11:15:48
-20231102 11:15:48 load ./testfile/t1.md
-20231102 11:15:48 load ./testfile/t1.md
-20231102 11:15:48 save
-session start at 20231102 11:15:48
-20231102 11:15:48 load ./testfile/t1.md
-20231102 11:15:48 insert 1 a
-20231102 11:15:48 save
-session start at 20231102 11:15:57
-session start at 20231102 11:22:24
-20231102 11:22:24 load ./testfile/t1.md
-20231102 11:22:24 load ./testfile/t1.md
-20231102 11:22:24 save
-session start at 20231102 11:22:24
-20231102 11:22:24 load ./testfile/t1.md
-20231102 11:22:24 insert 1 a
-20231102 11:22:24 save
-session start at 20231102 11:22:36
-20231102 11:22:36 load ./testfile/t1.md
-20231102 11:22:36 load ./testfile/t1.md
-20231102 11:22:36 save
-session start at 20231102 11:22:36
-20231102 11:22:36 load ./testfile/t1.md
-20231102 11:22:36 insert 1 a
-20231102 11:22:36 save
+session start at 20231107 10:36:11
+20231107 10:36:11 load ./testfile/list.md
+20231107 10:36:11 insert # t1
+20231107 10:36:11 insert ## tt1
+20231107 10:36:11 insert # t2
+20231107 10:36:11 insert ## tt1
+20231107 10:36:11 insert ## tt2
+20231107 10:36:11 list-tree
+20231107 10:36:11 dir-tree t2
+20231107 10:36:11 save
+./testfile/list.md 0秒
+session start at 20231107 10:40:04
+20231107 10:40:05 load ./testfile/testcase4.md
+20231107 10:40:05 undo
+20231107 10:40:05 list
+20231107 10:40:05 redo
+20231107 10:40:05 list
+session start at 20231107 10:41:03
+20231107 10:41:03 load ./testfile/testcase4.md
+20231107 10:41:03 undo
+20231107 10:41:03 list
+20231107 10:41:03 redo
+20231107 10:41:03 list
+session start at 20231107 10:41:39
+20231107 10:41:39 list
+20231107 10:41:39 list
+session start at 20231107 10:42:55
+20231107 10:42:55 load ./testfile/testcase4.md
+20231107 10:42:55 insert ## 二级标题
+20231107 10:42:55 insert ### 三级标题
+20231107 10:42:55 undo
+20231107 10:42:55 list
+20231107 10:42:55 redo
+20231107 10:42:55 list
+session start at 20231107 10:48:04
+20231107 10:48:04 load ./testfile/testcase4.md
+20231107 10:48:04 insert ## 二级标题
+20231107 10:48:04 insert ### 三级标题
+20231107 10:48:04 undo
+20231107 10:48:04 list
+20231107 10:48:04 redo
+20231107 10:48:04 list
+20231107 10:48:04 save
+./testfile/testcase4.md 0秒
+session start at 20231107 10:49:18
+20231107 10:49:18 load ./testfile/testcase4.md
+20231107 10:49:18 insert ## level two title
+20231107 10:49:18 insert ### level three title
+20231107 10:49:18 undo
+20231107 10:49:18 list
+20231107 10:49:18 redo
+20231107 10:49:18 list
+20231107 10:49:18 save
+./testfile/testcase4.md 0秒
+session start at 20231107 10:49:32
+20231107 10:49:32 load ./testfile/testcase4.md
+20231107 10:49:32 insert ## level two title
+20231107 10:49:32 insert ### level three title
+20231107 10:49:32 undo
+20231107 10:49:32 list
+20231107 10:49:32 redo
+20231107 10:49:32 list
+20231107 10:49:32 save
+./testfile/testcase4.md 0秒
+session start at 20231107 10:50:29
+20231107 10:50:29 load ./testfile/testcase4.md
+20231107 10:50:29 insert ## level two title
+20231107 10:50:29 insert ### level three title
+session start at 20231107 10:51:33
+20231107 10:51:33 load ./testfile/testcase4.md
+20231107 10:51:33 insert ## level two title
+20231107 10:51:33 insert ### level three title
+20231107 10:51:33 save
+./testfile/testcase4.md 0秒
+session start at 20231107 10:51:50
+20231107 10:51:50 load ./testfile/testcase4.md
+20231107 10:51:50 insert ## level two title
+20231107 10:51:50 insert ### level three title
+session start at 20231107 10:53:14
+20231107 10:53:24 load ./testfile/testcase4.md
+session start at 20231107 10:55:55
+20231107 10:55:55 load ./testfile/testcase4.md
+20231107 10:55:56 insert ## level two title
+20231107 10:55:56 insert ### level three title
+session start at 20231107 10:57:26
+20231107 10:57:26 load ./testfile/testcase4.md
+20231107 10:57:27 insert ## level two title
+20231107 10:57:27 insert ### level three title
+session start at 20231107 10:58:00
+20231107 10:58:00 load ./testfile/testcase4.md
+20231107 10:58:00 insert ## level two title
+20231107 10:58:00 insert ### level three title
+20231107 10:58:00 undo
+session start at 20231107 11:00:33
+20231107 11:00:33 load ./testfile/testcase4.md
+20231107 11:00:33 insert ## level two title
+20231107 11:00:33 insert ### level three title
+20231107 11:00:33 undo
+20231107 11:00:33 list
+20231107 11:00:33 redo
+20231107 11:00:33 list
+20231107 11:00:33 save
+./testfile/testcase4.md 0秒
+session start at 20231107 11:01:04
+20231107 11:01:04 load ./testfile/testcase4.md
+20231107 11:01:04 insert ## level two title
+20231107 11:01:04 insert ### level three title
+20231107 11:01:04 undo
+20231107 11:01:04 list
+20231107 11:01:04 redo
+20231107 11:01:04 list
+20231107 11:01:04 save
+./testfile/testcase4.md 0秒
+session start at 20231107 11:01:19
+20231107 11:01:19 load ./testfile/testcase4.md
+20231107 11:01:19 insert ## level two title
+20231107 11:01:19 insert ### level three title
+20231107 11:01:19 undo
+20231107 11:01:19 list
+20231107 11:01:19 redo
+20231107 11:01:19 list
+20231107 11:01:19 save
+./testfile/testcase4.md 0秒
+session start at 20231107 11:01:44
+20231107 11:01:44 load ./testfile/testcase4.md
+20231107 11:01:44 insert ## level two title
+20231107 11:01:44 insert ### level three title
+20231107 11:01:44 undo
+20231107 11:01:44 list
+20231107 11:01:44 redo
+20231107 11:01:44 list
+20231107 11:01:44 save
+./testfile/testcase4.md 0秒

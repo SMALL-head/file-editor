@@ -1,0 +1,10 @@
+load ./testfile/list.md
+insert # t1
+insert ## tt1
+insert # t2
+insert ## tt1
+insert ## tt2
+list-tree
+dir-tree t2
+save
+q

@@ -1,0 +1,9 @@
+load ./testfile/testcase4.md
+insert ## level two title
+insert ### level three title
+undo
+list
+redo
+list
+save
+q

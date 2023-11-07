@@ -1,0 +1,5 @@
+欢迎使用FileEditor系统
+打开文件: ./testfile/t1.md
+之前的文件尚未保存，请先执行save执行保存文件
+保存成功
+尚未load文件

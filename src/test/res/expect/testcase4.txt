@@ -1,0 +1,16 @@
+欢迎使用FileEditor系统
+打开文件: ./testfile/testcase4.md
+插入的行号: 1
+插入的内容: ## level two title
+插入的行号: 2
+插入的内容: ### level three title
+执行撤销操作：
+删除的行号是：2
+删除的内容是：### level three title
+## level two title
+恢复操作：
+插入的行号: 2
+插入的内容: ### level three title
+## level two title
+### level three title
+保存成功

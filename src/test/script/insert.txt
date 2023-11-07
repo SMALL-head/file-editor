@@ -1,4 +1,6 @@
-load ./testfile/t1.md
-insert 1 a
+load ./testfile/testcase2.md
+append-head # title
+append-tail # tail
+insert 3 ## 二级标题
 save
 q

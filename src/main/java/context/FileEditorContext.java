@@ -2,6 +2,7 @@ package context;
 
 import command.commandImpl.AbstractCommand;
 import log.CommandLogger;
+import stats.SessionStats;
 
 import java.io.RandomAccessFile;
 import java.util.Date;
@@ -75,5 +76,10 @@ public class FileEditorContext {
     private final CommandLogger commandLogger = new CommandLogger();
     public CommandLogger getCommandLogger() {
         return commandLogger;
+    }
+
+    private final SessionStats sessionStats = new SessionStats();
+    public SessionStats getSessionStats() {
+        return sessionStats;
     }
 }

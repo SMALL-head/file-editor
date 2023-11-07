@@ -5,6 +5,7 @@ import utils.SoutUtils;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,7 +87,7 @@ public class InsertCommand extends AbstractCommand{
                 lineCount++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+           SoutUtils.sout(e.getMessage());
         }
         return lineCount;
     }
@@ -109,7 +110,7 @@ public class InsertCommand extends AbstractCommand{
         int size = lineList.size();
         for (int i = 0; i < size; i++) {
             line = lineList.get(i);
-            file.writeBytes(line);
+            file.write(line.getBytes(StandardCharsets.UTF_8)); // 考虑到中文编码问题，这里直接对String指定utf解码
             if (i < size - 1) {
                 file.writeBytes(System.lineSeparator());
             }

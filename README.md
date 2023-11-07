@@ -14,14 +14,14 @@ status目录中存放统计模块中的生成的数据文件
 
 # 二、采用的设计模式说明
 1. 工厂模式。由于我们需要通过字符串(例如"load xxx")来生成命令(`LoadCommand`)，因此我们采用工厂模式进行创建。详细可参照src/main/java/command/factory中的实现
-2. 命令模式。为了实现指令执行的效果，切指令执行可以满足redo和undo，我们采用命令模式来设计。具体来说就是创建AbstractCommand，这个类中execute方法是关键，所有实现类都在这个方法实现了执行逻辑。
+2. 命令模式。为了实现指令执行的效果，且指令执行可以满足redo和undo，我们采用命令模式来设计。具体来说就是创建AbstractCommand，这个类中execute方法是关键，所有实现类都在这个方法实现了执行逻辑。
 3. 单例模式。我们使用了`FileEditorContext`这个类来存放一些全局属性。为了满足这种全局性，我们采用单例模式——隐藏了构造函数，使用final static public关键字来创建单例对象，并通过一个get方法将单例对象对外暴露
 4. 观察者模式。日志的记录采用了观察者模式。即指令（`AbstractCommand`）作为Subject，日志模块（`CommandLogger`）作为Observer，当指令执行的时候去notify日志模块来记录日志。
 
 # 三、项目运行说明及自动化测试说明
-项目结构在最终实现自动化测试的过程中，进行了简单的重构：使用Maven作为包管理工具，使用Junit4作为测试工具。  
-运行项目之前需要对环境进行配置。jdk版本需要17及以上，maven版本需要3.5及以上。
-以下是我通过`mvn -V`的结果。
+项目结构在最终实现自动化测试的过程中，进行了简单的重构：使用`Maven`作为包管理工具，使用`Junit4`作为测试工具。  
+运行项目之前需要对环境进行配置。jdk版本需要*17*及以上，maven版本需要*3.5*及以上。
+以下是我们实际验证的测试环境之一，通过`mvn -V`的结果。
 ```text
 Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00)
 Maven home: /opt/homebrew/Cellar/maven@3.5/3.5.4_1/libexec
@@ -31,9 +31,15 @@ OS name: "mac os x", version: "14.0", arch: "aarch64", family: "mac"
 ```
 使用`mvn test` 单独运行测试结果  
 使用`mvn install` 不仅会进行单元测试，而且得到打包结果，jar包会存储在target目录下  
-有了jar包后可以通过`java -jar target/FileEditor-1.0-jar-with-dependencies.jar`运行
+有了jar包后可以通过`java -jar target/FileEditor-1.0-jar-with-dependencies.jar`运行  
 
-# 四、开发人员必读
+获取最新的带有测试用例的maven框架分支：https://github.com/SMALL-head/file-editor/tree/junit_test
+
+# 四、部分命令说明
+insert命令：`insert 1 # title1`将会插入“# title”
+list命令：最多支持五个井号层级。为了满足需求，我们采用了树的数据结构来存储md文件的结构。在打印层级结构的时候，树数据结构非常有用
+
+# 五、开发人员必读
 1. 任何一个指令都需要实现或者重写三个方法: 
    - `public boolean isRecordable()`
    - `public void execute()`
